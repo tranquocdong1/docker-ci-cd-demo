@@ -35,3 +35,8 @@ jobs:
         context: .
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-ci-cd-demo:latest
+
+    - name: Trigger Render deployment
+      if: github.event_name == 'push'
+      run: |
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
